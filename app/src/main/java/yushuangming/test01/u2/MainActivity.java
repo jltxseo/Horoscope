@@ -11,6 +11,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,15 +60,17 @@ public class MainActivity extends AppCompatActivity {
         yunshi = (TextView) findViewById(R.id.yunshi);
 
         vp = (ViewPager) findViewById(R.id.vp);
-        if(sp.getString("xingzuo","").equals("")){
+        if(TextUtils.isEmpty(sp.getString("xingzuo",null))){
             SharedPreferences.Editor edit = sp.edit();
             edit.putString("xingzuoming","白羊座");
             edit.putInt("head", R.drawable.icon_sx_21);
             edit.putInt("index", 1);
             edit.commit();
         }
-        List<XingZuo> xingzuo1 = DataSupport.where("xingzuo=?", sp.getString("xingzuo", "")).find(XingZuo.class);
-        yunshi.setText(xingzuo1.get(0).getXingzuoming()+"运势");
+        List<XingZuo> xingzuo1 = DataSupport.where("xingzuo=?", sp.getString("xingzuo", "白羊座")).find(XingZuo.class);
+        if (xingzuo1 != null && !xingzuo1.isEmpty()){
+            yunshi.setText(xingzuo1.get(0).getXingzuoming()+"运势");
+        }
         jiemeng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
