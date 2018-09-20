@@ -221,8 +221,10 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                         show.cancel();
-                        List<XingZuo> xingzuo1 = DataSupport.where("xingzuo=?", sp.getString("xingzuo", "")).find(XingZuo.class);
-                        yunshi.setText(xingzuo1.get(0).getXingzuoming()+"运势");
+                        List<XingZuo> xingzuo1 = DataSupport.where("xingzuo=?", sp.getString("xingzuo", "白羊座")).find(XingZuo.class);
+                        if (xingzuo1 !=null && !xingzuo1.isEmpty()){
+                            yunshi.setText(xingzuo1.get(0).getXingzuoming()+"运势");
+                        }
 //                        manager = getSupportFragmentManager();
 //                        fragment = new MainXingZuoYunShiFragment();
 //                        FragmentTransaction fm = manager.beginTransaction();
